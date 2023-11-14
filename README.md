@@ -1,3 +1,3 @@
-# Jakarta EE 10 Starter + JSF 4 + CDI
+# Demo Jakarta + WS
 
 ## Deploy on Tomcat 10

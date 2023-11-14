@@ -70,5 +70,34 @@ public class PersonneApi {
                personnes.remove(p);
            }
        }*/
-   }
+    }
+
+    @PUT
+    @Path("/{id}")
+    public void updatePersonne(Personne newData, @PathParam("id") Integer id){
+
+        int i = 0;
+        while(i < personnes.size() && !personnes.get(i).getId().equals(id)){
+            i++;
+        }
+        if(i < personnes.size()){
+            newData.setId(id);
+            personnes.set(i, newData);
+        }
+    }
+
+    @PATCH
+    @Path("/{id}")
+    public void patchPersonne(Personne newData, @PathParam("id") Integer id){
+        int i = 0;
+        while(i < personnes.size() && !personnes.get(i).getId().equals(id)){
+            i++;
+        }
+        if(i < personnes.size()){
+            // algo PATCH
+            Personne dbPersonne = personnes.get(i);
+            dbPersonne.setNotNull(newData);
+        }
+
+    }
 }

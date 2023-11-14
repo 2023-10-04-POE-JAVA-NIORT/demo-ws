@@ -38,6 +38,13 @@ public class Personne {
         this.id = id;
     }
 
+    public void setNotNull(Personne newData){
+        if(newData.getPrenom() != null)
+            this.prenom = newData.getPrenom();
+        if(newData.getNom() != null)
+            this.nom = newData.getNom();
+    }
+
     @Override
     public String toString() {
         return "Personne{" +

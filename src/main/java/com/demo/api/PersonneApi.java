@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Path("/personnes")
@@ -41,4 +42,33 @@ public class PersonneApi {
         return null;
    }
 
+   @DELETE
+   @Path("/{id}")
+    public void deletePersonne(@PathParam("id") Integer id){
+
+        Iterator<Personne> it = personnes.listIterator();
+        boolean continuer = true;
+        while(it.hasNext() && continuer){
+            Personne p = it.next();
+            if(p.getId().equals(id)) {
+                personnes.remove(p);
+                continuer = false;
+            }
+        }
+        /*
+       int i = 0;
+       while(i < personnes.size() && !personnes.get(i).getId().equals(id)){
+          i++;
+       }
+       if(i < personnes.size()){
+           personnes.remove(i);
+       }*/
+
+/* ATTENTION : Exception Access Concurrent
+       for(Personne p : personnes){
+           if(p.getId().equals(id)){
+               personnes.remove(p);
+           }
+       }*/
+   }
 }

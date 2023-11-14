@@ -10,12 +10,19 @@ import java.util.List;
 @Path("/personnes")
 public class PersonneApi {
 
+    private static List<Personne> personnes = new ArrayList<>();
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
    public List<Personne> getPersonnes(){
-       List<Personne> personnes = new ArrayList<>();
-       personnes.add(new Personne("Alain", "Delon"));
-       personnes.add(new Personne("Marie", "Dupont"));
+
        return personnes;
+   }
+
+   @POST
+   @Consumes(MediaType.APPLICATION_JSON)
+   public void postPersonne(Personne newPersonne){
+        personnes.add(newPersonne);
+       System.out.println(newPersonne);
    }
 }

@@ -2,6 +2,7 @@ package com.demo.model;
 
 public class Personne {
 
+    private Integer id;
     private String prenom;
     private String nom;
 
@@ -27,6 +28,14 @@ public class Personne {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

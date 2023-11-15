@@ -3,6 +3,7 @@ package com.demo.api;
 import com.demo.model.Personne;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,10 +24,12 @@ public class PersonneApi {
 
    @POST
    @Consumes(MediaType.APPLICATION_JSON)
-   public void postPersonne(Personne newPersonne){
+   @Produces(MediaType.APPLICATION_JSON)
+   public Response postPersonne(Personne newPersonne){
         newPersonne.setId(idCount++);
         personnes.add(newPersonne);
        System.out.println(newPersonne);
+       return Response.status(Response.Status.CREATED).entity(newPersonne).build();
    }
 
    // GET 1 personn

@@ -83,15 +83,28 @@ public class PersonneApi {
 
     @PUT
     @Path("/{id}")
-    public void updatePersonne(Personne newData, @PathParam("id") Integer id){
+    public Response updatePersonne(Personne newData, @PathParam("id") Integer id){
 
-        int i = 0;
-        while(i < personnes.size() && !personnes.get(i).getId().equals(id)){
-            i++;
+        if(!id.equals(newData.getId())){
+            return Response.status(Response.Status.BAD_REQUEST).entity("deux id différents").build();
         }
-        if(i < personnes.size()){
-            newData.setId(id);
-            personnes.set(i, newData);
+        else {
+
+            if(findPersonne(id) == null){
+                return Response.status(Response.Status.NOT_FOUND).entity("id inexistant").build();
+            }
+            else {
+                int i = 0;
+                while (i < personnes.size() && !personnes.get(i).getId().equals(id)) {
+                    i++;
+                }
+                if (i < personnes.size()) {
+                    newData.setId(id);
+                    personnes.set(i, newData);
+                    return Response.ok().build();
+                }
+                return Response.status(Response.Status.BAD_REQUEST).entity("").build();
+            }
         }
     }
 
@@ -108,5 +121,14 @@ public class PersonneApi {
             dbPersonne.setNotNull(newData);
         }
 
+    }
+
+    private Personne findPersonne(Integer id){
+        for(Personne p : personnes){
+            if(p.getId().equals(id)){
+                return p;
+            }
+        }
+        return null;
     }
 }

@@ -26,10 +26,15 @@ public class PersonneApi {
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
    public Response postPersonne(Personne newPersonne){
-        newPersonne.setId(idCount++);
-        personnes.add(newPersonne);
-       System.out.println(newPersonne);
-       return Response.status(Response.Status.CREATED).entity(newPersonne).build();
+        if(newPersonne.getPrenom() == null || newPersonne.getNom()==null || newPersonne.getPrenom().isBlank() || newPersonne.getNom().isBlank()){
+            return Response.status(Response.Status.BAD_REQUEST).entity("Les champs doivent être non vides").build();
+        }
+        else {
+            newPersonne.setId(idCount++);
+            personnes.add(newPersonne);
+            System.out.println(newPersonne);
+            return Response.status(Response.Status.CREATED).entity(newPersonne).build();
+        }
    }
 
    // GET 1 personn

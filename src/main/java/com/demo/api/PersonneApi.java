@@ -26,7 +26,8 @@ public class PersonneApi {
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
    public Response postPersonne(Personne newPersonne){
-        if(newPersonne.getPrenom() == null || newPersonne.getNom()==null || newPersonne.getPrenom().isBlank() || newPersonne.getNom().isBlank()){
+        if(newPersonne.getPrenom() == null || newPersonne.getNom()==null
+                || newPersonne.getPrenom().isBlank() || newPersonne.getNom().isBlank()){
             return Response.status(Response.Status.BAD_REQUEST).entity("Les champs doivent être non vides").build();
         }
         else {
@@ -41,13 +42,13 @@ public class PersonneApi {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-   public Personne getPersonne(@PathParam("id") Integer id){
+   public Response getPersonne(@PathParam("id") Integer id){
         for(Personne p : personnes){
             if(p.getId().equals(id)){
-                return p;
+                return Response.status(Response.Status.OK).entity(p).build();
             }
         }
-        return null;
+        return Response.status(Response.Status.NOT_FOUND).entity("id inexistant").build();
    }
 
    @DELETE
